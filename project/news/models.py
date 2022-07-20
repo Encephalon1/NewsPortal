@@ -15,7 +15,13 @@ class Author(models.Model):
         commentRat = self.author.comment_set.aggregate(commentRating=Sum('rating_of_comment'))
         cRat = 0
         cRat += commentRat.get('commentRating')
-        self.authors_rating = pRat * 3 + cRat
+        
+        com_post_rat = self.post_set.all()
+        cp_rat = 0
+        for i in com_post_rat:
+            a = i.comment_set.aggregate(commentPostRating=Sum('rating_of_comment'))
+            cp_rat += a.get('commentPostRating')
+        self.authors_rating = p_rat * 3 + c_rat + cp_rat
         self.save()
 
 
