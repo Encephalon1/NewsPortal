@@ -8,14 +8,14 @@ class Author(models.Model):
     authors_rating = models.IntegerField(default=0)
 
     def update_rating(self):
-        postRat = self.post_set.aggregate(postRating=Sum('rating_of_post'))
-        pRat = 0
-        pRat += postRat.get('postRating')
+        post_rat = self.post_set.aggregate(postRating=Sum('rating_of_post'))
+        p_rat = 0
+        p_rat += post_rat.get('postRating')
 
-        commentRat = self.author.comment_set.aggregate(commentRating=Sum('rating_of_comment'))
-        cRat = 0
-        cRat += commentRat.get('commentRating')
-        
+        comment_rat = self.author.comment_set.aggregate(commentRating=Sum('rating_of_comment'))
+        c_rat = 0
+        c_rat += comment_rat.get('commentRating')
+
         com_post_rat = self.post_set.all()
         cp_rat = 0
         for i in com_post_rat:
@@ -55,6 +55,9 @@ class Post(models.Model):
 
     def preview(self):
         return self.post_text[0:123] + '...'
+
+    def __str__(self):
+        return f'{self.title} \n {self.post_text} \n {self.post_author} Rating = {self.rating_of_post}'
 
 
 class PostCategory(models.Model):

@@ -1,0 +1,12 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+<h6> {{ single_news.title }} </h6>
+<h6> {{ single_news.date_and_time_of_creation_post|date:'d M Y' }} </h6>
+<h6> {{ single_news.post_text|censor }} </h6>
+Рейтинг: {{ single_news.rating_of_post }}
+{% endblock content %}
